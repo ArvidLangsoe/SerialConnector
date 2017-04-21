@@ -5,7 +5,6 @@
 
 #include <unistd.h>
 
-
 #include "rs232.h"
 
 using namespace std;
