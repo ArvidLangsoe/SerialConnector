@@ -29,39 +29,37 @@ int transmitData(int cport_nr, int bdrate)
 {
     int i;
     char mode[]={'8','N','1',0},
-       str[2][512];
+       str[1][512];
 
 
-  strcpy(str[0], "The quick brown fox jumped over the lazy grey dog.\n");
-
-  strcpy(str[1], "Happy serial programming!.\n");
+    strcpy(str[0], "loserville\n");
 
 
-  if(RS232_OpenComport(cport_nr, bdrate, mode))
-  {
-    printf("Can not open comport\n");
+    if(RS232_OpenComport(cport_nr, bdrate, mode))
+    {
+        printf("Can not open comport\n");
+
+        return(0);
+    }
+
+    while(1)
+    {
+        RS232_cputs(cport_nr, str[i]);
+
+        printf("sent: %s\n", str[i]);
+
+        #ifdef _WIN32
+        Sleep(1000);
+        #else
+        usleep(1000000);  /* sleep for 1 Second */
+        #endif
+
+        i++;
+
+        i %= 2;
+    }
 
     return(0);
-  }
-
-  while(1)
-  {
-    RS232_cputs(cport_nr, str[i]);
-
-    printf("sent: %s\n", str[i]);
-
-#ifdef _WIN32
-    Sleep(1000);
-#else
-    usleep(1000000);  /* sleep for 1 Second */
-#endif
-
-    i++;
-
-    i %= 2;
-  }
-
-  return(0);
 }
 
 int receiveData(int cport_nr, int bdrate)
