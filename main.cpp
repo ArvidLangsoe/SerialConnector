@@ -2,11 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#ifdef _WIN32
-#include <Windows.h>
-#else
+
 #include <unistd.h>
-#endif
+
 
 #include "rs232.h"
 
